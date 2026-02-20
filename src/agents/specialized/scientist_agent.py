@@ -9,7 +9,7 @@ class ScientistAgent:
     The orchestrator that generates hypotheses and initial state tensors 
     for the differentiable physics engine.
     """
-    def __init__(self, model_name: str = "gemini-1.5-flash"):
+    def __init__(self, model_name: str = "gemini-2.5-flash"):
         # 1. Initialize the ADK Agent (The Brain)
         self.agent = Agent(
             name="ScientistAgent",
