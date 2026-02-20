@@ -12,21 +12,20 @@ dependencies = [
     "python-dotenv",
     "pyyaml",
     "uv",
-
     "google-adk",
     "google-genai",
-    
     # Backend Core
     "fastapi>=0.109.0",
     "uvicorn[standard]>=0.27.0",
     "pydantic-settings>=2.1.0",
     "python-multipart>=0.0.7",
-    
     # Utils
     "python-dotenv",
-    "gunicorn",   # For production deployment
-    "httpx",      # For async requests
-    "loguru"      # Better logging
+    "gunicorn", # For production deployment
+    "httpx", # For async requests # Better logging
+    "loguru",
+    "torch>=2.10.0",
+    "numpy>=2.4.2",
 ]
 
 [build-system]
