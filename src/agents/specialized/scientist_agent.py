@@ -3,6 +3,7 @@ from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
 from src.core.tools.physics_tools import run_physics_simulation
+import uuid
 
 class ScientistAgent:
     """
@@ -51,9 +52,10 @@ class ScientistAgent:
         print(f"\n[Scientist] Beginning experiment: {objective}")
         
         user_id = "research_user"
-        session_id = "sim_session_001"
+        # GENERATE A DYNAMIC SESSION ID FOR EVERY ATTEMPT
+        session_id = f"sim_session_{uuid.uuid4().hex[:8]}" 
         
-        # 4. Explicitly CREATE the session in the memory database before running!
+        # 4. Explicitly CREATE the session in the memory database
         await self.session_service.create_session(
             app_name=self.app_name,
             user_id=user_id,

@@ -3,6 +3,7 @@ from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
 from src.core.tools.physics_tools import validate_conservation_laws
+import uuid
 
 class ValidatorAgent:
     """
@@ -46,7 +47,8 @@ class ValidatorAgent:
         print("\n[Validator] Analyzing simulation metrics for OOD violations...")
         
         user_id = "validator_system"
-        session_id = "val_session_001"
+        # GENERATE A DYNAMIC SESSION ID FOR EVERY ATTEMPT
+        session_id = f"val_session_{uuid.uuid4().hex[:8]}"
         
         # 3. Create the session in the Validator's memory
         await self.session_service.create_session(
