@@ -23,7 +23,8 @@ async def main():
     validator = ValidatorAgent()
 
     # --- PHASE 1: GENERATION ---
-    objective = "Simulate a 3-body system where one body is 100x more massive than the other two, and they start in a tight, high-velocity orbit."
+    # We ask for a relativistic, extreme collision to force an OOD hallucination.
+    objective = "Simulate a 3-body system where the particles are colliding at extremely high, near-relativistic velocities (e.g., velocity components > 20.0)."
     scientist_report = await scientist.run_experiment(objective)
     
     print("\n" + "="*50)
