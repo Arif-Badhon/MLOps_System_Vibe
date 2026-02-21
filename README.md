@@ -12,9 +12,9 @@
 
 ## 🎯 The End Goal
 
-**Project Noether** bridges generative deep learning (Diffusion models / Normalizing Flows) with deterministic theoretical physics simulations via Google's Agent Development Kit (ADK). 
+**Project Noether** bridges generative deep learning (Diffusion models / Normalizing Flows) with deterministic theoretical physics simulations via Google's Agent Development Kit (ADK).
 
-Neural networks inherently "hallucinate" physically impossible states—such as energy spontaneously springing into existence or momentum diverging asynchronously—when pushed to chaotic out-of-distribution (OOD) edge cases. 
+Neural networks inherently "hallucinate" physically impossible states—such as energy spontaneously springing into existence or momentum diverging asynchronously—when pushed to chaotic out-of-distribution (OOD) edge cases.
 
 Our fundamental objective is to test the **OOD robustness of generative physics models**. By utilizing a sophisticated adversarial multi-agent orchestration layer, the system autonomously designs mathematically constrained edge-case simulations. Uncompromising agents then audit the neural network's outputs against bedrock conservation laws (e.g., Hamiltonian energy and total momentum vector conservation) to detect, isolate, and quantify non-physical AI hallucinations.
 
@@ -26,7 +26,7 @@ This repository serves as a masterclass in production-grade MLOps for complex, m
 
 1. **Agentic vs. LLM Paradigms:**
    We enforce strict lifecycle state management using ADK's `Runner` and `InMemorySessionService`. This intentionally shifts away from stateless, single-turn API calls to asynchronous event loops maintaining deep, multi-turn ReAct reasoning traces.
-   
+
 2. **Pydantic Guardrails:**
    Bridging stochastic cognitive outputs with the uncompromising numerical demands of PyTorch operations. Advanced Pydantic schema validation ensures the LLM's reasoning is strictly structured—preventing hallucinations from injecting non-physical parameters (e.g., negative mass, infinite velocities) that induce exploding gradients and NaNs in the tensor graph.
 
@@ -81,15 +81,17 @@ graph TD
 
 ```text
 ProjectNoether/
-├── agents/            # Cognitive orchestrators
-│   ├── specialized/   # Domain-specific adversarial nodes (Scientist, Validator)
-│   └── shared/        # Shared memory, system prompts, schemas, and ADK configuration
-├── backend/           # FastAPI service boundaries (API routing & state management)
-├── core/              # Foundational engine components
-│   └── tools/         # Strict PyTorch interfaces, physics_tools.py, Pydantic guardrails
-├── environment/       # Differentiable physics engines and stochastic transition dynamics
-├── notebooks/         # Exploratory data analysis, local experimentation, hypothesis testing
-└── scripts/           # Execution entrypoints, async bootstrappers, evaluation loops
+├── src/
+│   ├── agents/            # Cognitive orchestrators (Scientist, Validator)
+│   ├── backend/           # FastAPI service boundaries (API routing & state)
+│   ├── core/              # Foundational cognitive architecture (Memory, Tools, Pydantic guardrails)
+│   ├── environment/       # Differentiable physics engines (MPS-accelerated)
+│   └── utils/             # Telemetry, logging, and metrics
+├── config/                # YAML configurations for models and orchestrators
+├── data/                  # Local vector stores, session memory, and .pt tensor trajectories
+├── notebooks/             # Exploratory data analysis and hypothesis testing
+├── tests/                 # Pytest suite for deterministic execution
+└── test_scientist.py      # The autonomous multi-agent execution loop
 ```
 
 ---
@@ -112,6 +114,7 @@ cp .env.example .env
 ```
 
 Ensure your `.env` contains the required Google API Key to authorize the ADK conversational loop:
+
 ```env
 # .env
 GOOGLE_API_KEY="your_gemini_api_key_here"
@@ -126,7 +129,7 @@ Initialize the asynchronous multi-agent orchestrator utilizing local Unified Mem
 uv run python test_scientist.py
 ```
 
-The terminal will stream the `Scientist Agent` formulating an extreme edge-case hypothesis (e.g., a chaotic, high-velocity 3-body collision), mathematically configuring the initial state, validating through Pydantic guardrails, and instantaneously resolving the dynamic layout on your hardware’s GPU via PyTorch MPS. 
+The terminal will stream the `Scientist Agent` formulating an extreme edge-case hypothesis (e.g., a chaotic, high-velocity 3-body collision), mathematically configuring the initial state, validating through Pydantic guardrails, and instantaneously resolving the dynamic layout on your hardware’s GPU via PyTorch MPS.
 
 ---
 *Architected for the vanguard intersection of foundational learning models and rigorous theoretical physics.*
