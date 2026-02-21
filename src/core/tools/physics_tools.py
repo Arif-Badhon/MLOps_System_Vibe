@@ -47,7 +47,26 @@ class DifferentiablePhysicsEngine:
     def simulate(self, state: dict) -> dict:
         dummy_tensor = torch.randn((state['simulation_steps'], len(state['particles']), 3), device=self.device)
         initial_e = torch.abs(torch.randn(1, device=self.device)).item() * 100
-        drift = 0.05 
+        
+        # --- OOD INJECTION LOGIC ---
+        # Let's check if the Scientist pushed the velocities too high.
+        # If any particle has a velocity magnitude > 15, we simulate a generative hallucination!
+        hallucination_triggered = False
+        for p in state['particles']:
+            v = p['velocity']
+            magnitude = sum([x**2 for x in v]) ** 0.5
+            if magnitude > 15.0:
+                hallucination_triggered = True
+                break
+        
+        if hallucination_triggered:
+            print("\n🚨 [PHYSICS ENGINE WARNING] OOD Boundary crossed! Generative Model hallucinating...")
+            drift = 500.0  # Massive, physically impossible energy drift
+            momentum_conserved = False
+        else:
+            drift = 0.05   # Normal numerical drift
+            momentum_conserved = True
+        # ---------------------------
 
         return {
             "simulation_id": "sim_" + str(torch.randint(1000, 9999, (1,)).item()),
@@ -56,7 +75,7 @@ class DifferentiablePhysicsEngine:
                 "initial_energy": initial_e,
                 "final_energy": initial_e + drift,
                 "energy_drift": drift,
-                "momentum_conserved": True
+                "momentum_conserved": momentum_conserved
             },
             "trajectory_reference_path": f"/data/memory/trajectories/sim_mock.pt"
         }
